@@ -24,20 +24,48 @@ if ( ! class_exists( 'LamostyArticleStatistics' ) ) :
 final class LamostyArticleStatistics {
 
 	public function __construct() {
+		require_once( 'includes/main-definitions.php' );
+
+		if ( function_exists( "__autoload" ) ) {
+			spl_autoload_register( "__autoload" );
+		}
+
 		spl_autoload_register( array( $this, 'autoload' ));
 
 		$this->include_required_files();
 
+		add_action( 'init', array( $this, 'init' ) );
+
 	}
 
-	private function autoload( $class ) {
-		$path = null;
+	public function autoload( $class ) {
+		$path = LAS_INC_DIR . '/';
 		$class = strtolower( $class );
 		$file = 'class-' . str_replace( '_', '-', $class) . '.php';
+
+		if ( $path && is_readable( $path . $file ) ) {
+			require_once( $path . $file );
+			return;
+		}
 	}
 
 	private function include_required_files() {
-		require_once( 'includes/main-definitions.php' );
+	}
+
+	public function init() {
+		$this->load_plugin_textdomain();
+
+		if ( is_admin() ) {
+			$this->init_admin_dashboard();
+		}
+	}
+
+	private function init_admin_dashboard() {
+		$admin_dashboard = new LAS_Admin();
+	}
+
+	private function load_plugin_textdomain() {
+		load_plugin_textdomain( LAS_TEXT_DOMAIN );
 	}
 }
 
