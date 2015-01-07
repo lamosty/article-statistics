@@ -1,0 +1,3 @@
+[submodule "lib/text-statistics-lib"]
+	path = lib/text-statistics-lib
+	url = git@github.com:DaveChild/Text-Statistics.git
