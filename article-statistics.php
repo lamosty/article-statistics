@@ -56,12 +56,12 @@ final class LamostyArticleStatistics {
 		$this->load_plugin_textdomain();
 
 		if ( is_admin() ) {
-			$this->init_admin_dashboard();
+			new Las_Admin_Dashboard();
 		}
-	}
 
-	private function init_admin_dashboard() {
-		$admin_dashboard = new LAS_Admin();
+		if ( current_user_can( 'read' ) ) {
+			new Las_Frontend_Bar();
+		}
 	}
 
 	private function load_plugin_textdomain() {

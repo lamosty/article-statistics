@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'LAS_Admin' ) ) :
 
-final class LAS_Admin {
+final class LAS_Admin_Dashboard {
 
 	public function __construct() {
 
