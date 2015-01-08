@@ -67,8 +67,25 @@ final class LamostyArticleStatistics extends LAS_Plugin {
 	}
 
 	public function activate() {
+		$admins = get_role( 'administrator' );
+		$admins->add_cap( LAS_USER_CAP );
+	}
 
+	public function deactivate() {
+		$admins = get_role( 'administrator' );
+		$admins->remove_cap( LAS_USER_CAP );
+	}
 
+	public function user_can_view() {
+		if ( ! did_action( 'plugins_loaded' ) ) {
+			return false;
+		}
+
+		if ( ! current_user_can( LAS_USER_CAP ) ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	private function load_plugin_textdomain() {

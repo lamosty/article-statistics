@@ -13,3 +13,5 @@ define( 'LAS_TEXT_DOMAIN', 'lamosty-article-statistics' );
 
 defined( 'LAS_DIR' ) || define( 'LAS_DIR', realpath( dirname( __FILE__) . '/..' ) );
 define( 'LAS_INC_DIR', LAS_DIR . '/includes' );
+
+define( 'LAS_USER_CAP', 'view_article_statistics' );
