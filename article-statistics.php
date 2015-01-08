@@ -60,7 +60,7 @@ final class LamostyArticleStatistics {
 		}
 
 		if ( current_user_can( 'read' ) ) {
-			new Las_Frontend_Bar();
+			new Las_Frontend_Toolbar();
 		}
 	}
 

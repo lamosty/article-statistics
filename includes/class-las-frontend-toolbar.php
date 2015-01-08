@@ -9,12 +9,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'LAS_Admin' ) ) :
 
-final class LAS_Frontend_Bar {
+final class LAS_Frontend_Toolbar {
 
 	public function __construct() {
 		if ( $this->is_enabled() ) {
 			$this->init();
-
 		}
 
 	}
@@ -32,7 +31,7 @@ final class LAS_Frontend_Bar {
 
 		$args = array(
 			'id' => 'las-article-stats',
-			'title' => __( 'Article Stats', LAS_TEXT_DOMAIN ),
+			'title' => _x( 'Article Stats', 'button in Toolbar', LAS_TEXT_DOMAIN ),
 			'group' => false,
 			'href' => '#las-overview'
 		);
