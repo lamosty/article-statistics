@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'LAS_Admin' ) ) :
+if ( ! class_exists( 'LAS_Frontend_Toolbar' ) ) :
 
 final class LAS_Frontend_Toolbar {
 

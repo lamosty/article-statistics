@@ -15,26 +15,31 @@
  * Tested up to:      4.1
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+defined( 'ABSPATH' ) or die();
+
+$las_dir = dirname( __FILE__ );
+
+foreach ( array( 'lib/class-las-plugin', 'includes/main-definitions' ) as $las_files ) {
+	require_once( "{$las_dir}/{$las_files}.php" );
 }
 
 if ( ! class_exists( 'LamostyArticleStatistics' ) ) :
 
-final class LamostyArticleStatistics {
+final class LamostyArticleStatistics extends LAS_Plugin {
 
-	public function __construct() {
-		require_once( 'includes/main-definitions.php' );
-
+	protected function __construct( $file ) {
 		if ( function_exists( "__autoload" ) ) {
 			spl_autoload_register( "__autoload" );
 		}
 
 		spl_autoload_register( array( $this, 'autoload' ));
 
-		$this->include_required_files();
+		add_action( 'init', array( $this, 'action_init' ) );
 
-		add_action( 'init', array( $this, 'init' ) );
+		register_activation_hook( $file, array( $this, 'activate' ) );
+		register_deactivation_hook( $file, array( $this, 'deactivate' ) );
+
+		parent::__construct( $file );
 
 	}
 
@@ -49,10 +54,7 @@ final class LamostyArticleStatistics {
 		}
 	}
 
-	private function include_required_files() {
-	}
-
-	public function init() {
+	public function action_init() {
 		$this->load_plugin_textdomain();
 
 		if ( is_admin() ) {
@@ -64,11 +66,27 @@ final class LamostyArticleStatistics {
 		}
 	}
 
+	public function activate() {
+
+
+	}
+
 	private function load_plugin_textdomain() {
 		load_plugin_textdomain( LAS_TEXT_DOMAIN );
+	}
+
+	public static function init( $file = null ) {
+		static $instance = null;
+
+		if ( ! $instance ) {
+			$instance = new LamostyArticleStatistics( $file );
+		}
+
+		return $instance;
 	}
 }
 
 endif;
 
-new LamostyArticleStatistics();
+LamostyArticleStatistics::init( __FILE__ );
+
